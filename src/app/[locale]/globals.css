@@ -41,11 +41,14 @@ textarea {
 }
 
 @layer components {
-  .popover {
-    @apply absolute space-y-2 border border-light/10 rounded-lg shadow-lg bg-dark text-light z-100;
-  }
   .btn-light {
     @apply px-4 sm:px-6 py-2 sm:py-2.5 bg-light text-sm sm:text-base text-dark font-medium hover:bg-light/80 duration-300;
+  }
+  .btn-cross-modal {
+    @apply absolute duration-300 right-4 top-4 flex justify-center items-center rounded-full border-light border-2 size-8 hover:bg-light;
+  }
+  .popover {
+    @apply absolute space-y-2 border border-light/10 rounded-lg shadow-lg bg-dark text-light z-100;
   }
   .card-diamond {
     @apply relative cursor-pointer flex items-center justify-between w-full p-2 px-4 border rounded-lg sm:gap-4 md:px-2 xl:px-6 md:py-4 text-light border-light/50;

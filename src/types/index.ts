@@ -6,3 +6,4 @@ export * from "./response";
 export * from "./tabs";
 export * from "./card";
 export * from "./ribbon";
+export * from "./modal";

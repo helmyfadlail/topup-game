@@ -1,7 +1,7 @@
 import Products from "./products";
 
 import { Carousel } from "antd";
-import { Background, CardPromo, Container, CountdownTimer, Img } from "@/components/ui";
+import { Background, CardFlashSale, Container, CountdownTimer, Img } from "@/components/ui";
 
 import { ResponsePayload } from "@/types";
 
@@ -30,7 +30,7 @@ export default async function HomePage() {
           <p className="text-xs sm:text-base md:text-lg">Segera dapatkan penawaran terbatas dari kami, jangan sampai ketinggalan!</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }, (_, index) => (
-              <CardPromo key={index} />
+              <CardFlashSale key={index} />
             ))}
           </div>
         </Container>

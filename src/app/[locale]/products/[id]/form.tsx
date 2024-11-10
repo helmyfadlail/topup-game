@@ -2,8 +2,8 @@
 
 import * as React from "react";
 
-import { motion } from "framer-motion";
-import { CardPayment, CardUserID, Container, Img } from "@/components/ui";
+import { AnimatePresence, motion } from "framer-motion";
+import { CardPayment, CardPromo, CardUserID, Container, Img, Modal } from "@/components/ui";
 
 import { CiSearch } from "react-icons/ci";
 import { IoMdPricetag } from "react-icons/io";
@@ -14,6 +14,7 @@ import { motionVariants } from "@/static";
 import { formatCurrency } from "@/utils";
 
 import { FormUserTypes } from "@/types";
+import { useToggleState } from "@/hooks";
 
 const initValues = { userId: "", zoneId: "", whatsappNumber: "" };
 const initState = { values: initValues, loading: false, error: false };
@@ -33,6 +34,8 @@ const paymentMethod = [
 ];
 
 const Form = () => {
+  const [ref, modal, toggleModal] = useToggleState();
+
   const [selected, setSelected] = React.useState<string>("");
   const [items, setItems] = React.useState(paymentMethod);
   const [formState, setFormState] = React.useState<FormUserTypes>(initState);
@@ -71,12 +74,38 @@ const Form = () => {
           />
           <button className="btn-light rounded-e-xl">Gunakan</button>
         </div>
-        <div className="flex items-center justify-between gap-4 p-3 border rounded-lg lg:p-4 border-light/20">
+        <div className="flex items-center justify-between gap-4 p-3 border rounded-lg lg:p-4 border-light/20" ref={ref}>
           <IoMdPricetag className="-rotate-90 size-5 lg:size-6 min-w-6" />
           <p className="w-full text-sm lg:text-base">Lihat promo tersedia</p>
-          <button>
+          <button onClick={toggleModal}>
             <PiCaretRightBold />
           </button>
+          <AnimatePresence>
+            {modal && (
+              <Modal isVisible={modal} onClose={toggleModal}>
+                <div className="space-y-8">
+                  <h3 className="text-lg font-medium text-center">Promo yang tersedia</h3>
+                  <CardPromo
+                    minimumLimit="Promo ini sudah mencapai limit penggunaan untuk hari ini, digunakan 50/50"
+                    minimumPurchase="Minimum pembelian Rp. 10.000"
+                    deadline="Promo berlaku hingga 30/10/2024"
+                    discount={5000}
+                    minimumAccount="Batas penggunaan 2 kali untuk setiap akun."
+                    codePromo="OKTOBERTOPUP"
+                  />
+                  <CardPromo
+                    minimumLimit="Promo ini masih tersedia dan terbatas"
+                    minimumPurchase="Minimum pembelian Rp. 30.000"
+                    deadline="Promo berlaku hingga 30/11/2024"
+                    discount={5000}
+                    minimumAccount="Batas penggunaan 2 kali untuk setiap akun."
+                    codePromo="NOVEMBERTOPUP"
+                    isExist
+                  />
+                </div>
+              </Modal>
+            )}
+          </AnimatePresence>
         </div>
       </div>
       <div className="p-4 pt-2 space-y-6 border-t rounded-b-lg lg:space-y-8 md:pt-8 md:rounded-lg lg:p-6 xl:p-8 bg-background border-light/20 md:border-none">
@@ -116,7 +145,7 @@ const Form = () => {
             </div>
           </div>
           <div className="relative whitespace-nowrap">
-            <button className="rounded-lg btn-light relative">Buy Now</button>
+            <button className="relative rounded-lg btn-light">Buy Now</button>
           </div>
         </Container>
       </div>

@@ -10,11 +10,14 @@ import { Img } from "./image";
 
 import { imgLogoBroken } from "@/static";
 
+import { WiTime3 } from "react-icons/wi";
+import { PiWarningCircle } from "react-icons/pi";
+
 import { formatCurrency } from "@/utils";
 
-import { CardDiamondProps, CardPaymentProps, CardUserIDProps, ResponsePayload } from "@/types";
+import { CardDiamondProps, CardPaymentProps, CardPromoProps, CardUserIDProps, ResponsePayload } from "@/types";
 
-export const CardPromo = () => {
+export const CardFlashSale = () => {
   return (
     <div className="w-full rounded-lg bg-dark group">
       <div className="flex items-center gap-2 p-4 rounded-lg bg-gradient-to-r from-dark to-light/50 group-hover:from-light group-hover:to-light group-hover:text-dark">
@@ -86,7 +89,7 @@ export const CardDiamond = ({ handleSelectDiamond, selectItem, price, priceDisco
   return (
     <div onClick={() => handleSelectDiamond(id || 0)} className="card-diamond">
       {selectItem === id && <Border />}
-      {priceDiscount ? <Ribbon value={`${Math.ceil(discount)}% OFF`} className="w-20 lg:w-24 py-1" parentClassName="w-14 lg:w-16" /> : null}
+      {priceDiscount ? <Ribbon value={`${Math.ceil(discount)}% OFF`} className="w-20 py-1 lg:w-24" parentClassName="w-14 lg:w-16" /> : null}
       <div className="space-y-1 text-xxs sm:text-xs">
         <p className="font-semibold">{name}</p>
         <p className="font-semibold text-green">{formatCurrency((priceDiscount ? priceDiscount : price) || 0)},-</p>
@@ -164,5 +167,35 @@ export const CardUserID = ({ handleChangeInput, formState }: CardUserIDProps) =>
         </div>
       </div>
     </>
+  );
+};
+
+export const CardPromo = ({ discount, deadline, minimumPurchase, minimumAccount, minimumLimit, codePromo, isExist }: CardPromoProps) => {
+  return (
+    <div className={`relative space-y-4 text-xs ${isExist ? "opacity-100" : "opacity-50"}`}>
+      <h6 className="text-light/50">Discount of Rp {formatCurrency(discount, "decimal")},-</h6>
+      <div className="space-y-1">
+        <p className="flex gap-2">
+          <WiTime3 size={20} className="min-w-5" />
+          {deadline}
+        </p>
+        <p className="flex gap-2">
+          <PiWarningCircle size={20} className="min-w-5" />
+          {minimumPurchase}
+        </p>
+        <p className="flex gap-2">
+          <PiWarningCircle size={20} className="min-w-5" />
+          {minimumAccount}
+        </p>
+        <p className="flex gap-2">
+          <PiWarningCircle size={20} className="min-w-5" />
+          {minimumLimit}
+        </p>
+      </div>
+      <div className="flex items-center justify-between">
+        <p className="text-light/50">Kode Promo: {codePromo}</p>
+        <button className={`px-4 py-1 rounded-lg ${isExist ? "bg-green" : "bg-red-500"}`}>{isExist ? "Available" : "Not Available"}</button>
+      </div>
+    </div>
   );
 };

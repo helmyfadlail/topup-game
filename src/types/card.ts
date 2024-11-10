@@ -25,3 +25,13 @@ export interface CardUserIDProps {
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   formState: FormUserTypes;
 }
+
+export interface CardPromoProps {
+  discount: number;
+  deadline: string;
+  minimumPurchase: string;
+  minimumAccount: string;
+  minimumLimit: string;
+  codePromo: string;
+  isExist?: boolean;
+}
