@@ -6,24 +6,15 @@ import { CardDiamond, CardUserID, Img } from "@/components/ui";
 
 import { FormUserTypes, ResponsePayload } from "@/types";
 
-const initValues = { userId: "", zoneId: "", whatsappNumber: "" };
-const initState = { values: initValues, loading: false, error: false };
+interface DiamondsProps {
+  product: Partial<ResponsePayload>;
+  handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  selectItem: number;
+  handleSelectItem: (selected: number) => void;
+  formState: FormUserTypes;
+}
 
-const Diamonds = ({ product }: { product: Partial<ResponsePayload> }) => {
-  const [formState, setFormState] = React.useState<FormUserTypes>(initState);
-  const [selectItem, setSelectItem] = React.useState<number | null>(null);
-
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormState((prevState) => ({
-      ...prevState,
-      values: { ...prevState.values, [id]: value },
-    }));
-  };
-
-  const handleSelectDiamond = (id: number) => {
-    setSelectItem(id);
-  };
+const Diamonds = ({ product, handleChangeInput, selectItem, handleSelectItem, formState }: DiamondsProps) => {
   return (
     <>
       <div className="block p-4 -mt-64 rounded-lg md:hidden bg-background">
@@ -52,7 +43,7 @@ const Diamonds = ({ product }: { product: Partial<ResponsePayload> }) => {
                 id={item.id}
                 price={item.price}
                 priceDiscount={item.priceDiscount}
-                handleSelectDiamond={handleSelectDiamond}
+                handleSelectItem={handleSelectItem}
               />
             );
           })}

@@ -16,7 +16,7 @@ body {
 /* scrollbar style */
 .scrollbar::-webkit-scrollbar {
   width: 6px;
-  height: 4px;
+  height: 8px;
 }
 .scrollbar::-webkit-scrollbar-track {
   border-radius: 100vh;
@@ -30,6 +30,35 @@ body {
   background: #7b818e;
 }
 
+/* loading styles */
+.loader {
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #1a1a1a;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  border-left: 4px solid #16c829;
+  border-bottom: 4px solid transparent;
+  animation: rotation 0.5s linear infinite reverse;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 textarea {
   margin: 0px;
   -webkit-box-shadow: none;
@@ -38,6 +67,31 @@ textarea {
   height: 38px;
   border: 1px solid #000;
   resize: none;
+}
+
+.swiper {
+  width: 100%;
+  height: 390px;
+}
+.swiper-slide {
+  width: 100%;
+  max-width: 1216px;
+}
+
+@media only screen and (max-width: 640px) {
+  .swiper {
+    height: 240px;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .swiper {
+    height: 320px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .swiper {
+    height: 390px;
+  }
 }
 
 @layer components {

@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { Footer, Header } from "@/components";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -39,6 +40,7 @@ export default async function LocaleLayout({ children, params: { locale } }: { c
     <html lang={locale}>
       <body className="flex flex-col min-h-screen">
         <NextIntlClientProvider messages={messages}>
+          <Toaster position="bottom-center" />
           <Header className={space_grotesk.className} />
           <main className={`mt-20 sm:mt-36 ${poppins.className}`}>{children}</main>
           <Footer className={space_grotesk.className} />

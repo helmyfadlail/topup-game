@@ -1,6 +1,28 @@
 {
   "HomePage": {
     "title": "Halo Dunia!",
-    "about": "Pergi ke halaman tentang kami"
+    "about": "Pergi ke halaman tentang kami",
+    "favorite-games": "Temukan Game Favorit Anda",
+    "recommendation": "Rekomendasi",
+    "pc-game": "Permainan Komputer",
+    "mobile-game": "Permainan Seluler"
+  },
+  "Header": {
+    "login-register": "Masuk/Daftar",
+    "home": "Beranda",
+    "tracker": "Periksa Transaksi",
+    "all-products": "Semua Produk"
+  },
+  "Footer": {
+    "home": "Rumah",
+    "all-games": "Semua Permainan",
+    "register": "Daftar",
+    "login": "Masuk",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Ketentuan Layanan",
+    "contact": "Hubungi kami",
+    "follow": "Ikuti Kami",
+    "other": "Permainan Lainnya",
+    "sitemap": "Peta Situs"
   }
 }

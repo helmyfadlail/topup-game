@@ -54,7 +54,7 @@ export const CountdownTimer = () => {
 export const CountdownPayment = () => {
   const [timeLeft, setTimeLeft] = React.useState<{ hours: number; minutes: number; seconds: number } | null>(null);
 
-  const endTime = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+  const endTime = new Date(new Date().getTime() + 60 * 60 * 1000);
 
   const calculateTimeLeft = () => {
     const difference = +endTime - +new Date();

@@ -1,26 +1,43 @@
-import { CountdownPayment, Img } from "@/components/ui";
+"use client";
 
-const Payment = () => {
+import { CountdownPayment, Img } from "@/components/ui";
+import { usePersistedState } from "@/hooks";
+import { mergedPaymentMethods } from "@/static";
+
+const Payment = ({ id }: { id: string }) => {
+  const { payload } = usePersistedState();
+  const invoice = payload?.find((item) => item.invoicesId === id);
+
+  const findPayment = mergedPaymentMethods.find((item) => item.name === invoice?.paymentMethod);
+
   return (
     <div className="space-y-4">
-      <div className="bg-background py-8 px-12 rounded-lg text-center">
-        <h4 className="font-semibold text-2xl mb-8">WAITING FOR PAYMENT</h4>
-        <p className="text-light/50 mb-4 text-sm">Complete payment before time runs out</p>
+      <div className="px-12 py-8 text-center rounded-lg bg-background">
+        <h4 className="mb-8 text-2xl font-semibold">WAITING FOR PAYMENT</h4>
+        <p className="mb-4 text-sm text-light/50">Complete payment before time runs out</p>
         <CountdownPayment />
-        <p className="text-light/50 mt-4 text-sm">So Your Order Doesn&apos;t Expire</p>
+        <p className="mt-4 text-sm text-light/50">So Your Order Doesn&apos;t Expire</p>
       </div>
-      <div className="bg-background p-8 rounded-lg space-y-4">
-        <div className="flex items-center gap-2 text-sm p-2 rounded-lg border border-light/10">
-          <Img src="/images/qris.webp" alt="icon payment" className="aspect-video w-48 rounded-md" cover />
+      <div className="p-8 space-y-4 rounded-lg bg-background">
+        <div className="flex items-center gap-2 p-2 text-sm border rounded-lg border-light/10">
+          <Img src={findPayment?.iconUrl || ""} alt="icon payment" className="w-48 rounded-md aspect-video max-w-48" cover />
           <div className="space-y-1 ">
-            <p className="text-sm font-semibold">Scan QRIS</p>
-            <p className="text-xs text-light/50">Scan via Shopee Pay, OVO, DANA, Gopay and LinkAja</p>
+            <p className="text-sm font-semibold">{findPayment?.name}</p>
+            {findPayment?.name === "QRIS" ? (
+              <p className="text-xs text-light/50">Scan via Shopee Pay, OVO, DANA, Gopay and LinkAja</p>
+            ) : (
+              <p className="text-xs text-light/50"> Transfer melalui metode {findPayment?.name}</p>
+            )}
           </div>
         </div>
-        <div className="px-4">
-          <Img src="/images/qr.png" alt="icon payment" className="aspect-square w-full rounded-md" cover />
-        </div>
-        <button className="btn-light rounded-lg w-full">Download QR Code</button>
+        {findPayment?.name === "QRIS" && (
+          <>
+            <div className="px-4">
+              <Img src="/images/qr.png" alt="icon payment" className="w-full rounded-md aspect-square" cover />
+            </div>
+            <button className="w-full rounded-lg btn-light">Download QR Code</button>
+          </>
+        )}
       </div>
     </div>
   );

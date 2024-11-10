@@ -1,3 +1,7 @@
+export interface DynamicPayload {
+  [key: string]: any;
+}
+
 export interface Item {
   id: number;
   name: string;

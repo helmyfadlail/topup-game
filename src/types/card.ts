@@ -16,7 +16,7 @@ export interface CardPaymentProps {
 }
 
 export interface CardDiamondProps extends Partial<Item> {
-  handleSelectDiamond: (select: number) => void;
+  handleSelectItem: (selected: number) => void;
   selectItem: number;
   discount: number;
 }

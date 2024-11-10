@@ -1,9 +1,6 @@
 import { notFound } from "next/navigation";
 
-import Diamonds from "./diamonds";
-import Form from "./form";
-
-import { Background, Container, Img } from "@/components/ui";
+import { Background, Img } from "@/components/ui";
 
 import { HiBadgeCheck } from "react-icons/hi";
 import { MdHeadsetMic } from "react-icons/md";
@@ -11,6 +8,7 @@ import { MdHeadsetMic } from "react-icons/md";
 import { imgBanner, imgLogoBroken } from "@/static";
 
 import { ResponsePayload } from "@/types";
+import Product from "./product";
 
 export default async function ProductDetailPage({ params }: { params: { id: number } }) {
   const response = await fetch("https://6708f839af1a3998ba9fdc6e.mockapi.io/api/v1/products");
@@ -73,11 +71,7 @@ export default async function ProductDetailPage({ params }: { params: { id: numb
           </div>
         </div>
       </Background>
-      <Container className="grid w-full grid-cols-1 gap-8 py-8 md:grid-cols-2 lg:grid-cols-5">
-        <Diamonds product={product} />
-
-        <Form />
-      </Container>
+      <Product product={product} />
     </section>
   );
 }

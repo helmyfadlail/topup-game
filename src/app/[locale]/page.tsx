@@ -1,7 +1,6 @@
 import Products from "./products";
 
-import { Carousel } from "antd";
-import { Background, CardFlashSale, Container, CountdownTimer, Img } from "@/components/ui";
+import { Background, CardFlashSale, Container, CountdownTimer, Slider } from "@/components/ui";
 
 import { ResponsePayload } from "@/types";
 
@@ -9,26 +8,22 @@ export default async function HomePage() {
   const response = await fetch("https://6708f839af1a3998ba9fdc6e.mockapi.io/api/v1/products");
   const products: ResponsePayload[] = await response.json();
 
-  const banners = ["/images/mobile-legends.webp", "/images/mobile-legends-battle.webp"];
+  const banners = ["/images/banner-home-4.webp", "/images/banner-home-3.webp", "/images/banner-home-2.webp", "/images/banner-home-1.webp"];
 
   return (
     <section className="overflow-x-hidden">
       <Background src="/images/bg-hero.webp" className="flex-col bg-gradient-to-b from-transparent from-60% to-dark">
-        <Container className="pt-8 space-y-4 sm:pt-12 md:pt-16">
-          <Carousel arrows infinite={false}>
-            {banners.map((banner, index) => (
-              <Img src={banner} key={index} className="w-full h-60 sm:h-80 md:h-96 rounded-xl" alt="Banners Top Up" cover />
-            ))}
-          </Carousel>
+        <Slider images={banners} />
+        <Container className="pt-2 sm:pt-4">
           <div className="space-y-1">
             <h4 className="text-sm font-semibold sm:text-lg md:text-2xl lg:text-3xl">Starlight Mei 2024: Nolan “Fashion Mogul”</h4>
             <p className="text-xs sm:text-base md:text-lg">Segera dapatkan skin startlight Nolan “Fashion Mogul” dengan topup murah hanya di ManiacGame.</p>
           </div>
         </Container>
-        <Container className="py-16 space-y-2 text-light">
+        <Container className="py-20 space-y-2 text-light">
           <CountdownTimer />
           <p className="text-xs sm:text-base md:text-lg">Segera dapatkan penawaran terbatas dari kami, jangan sampai ketinggalan!</p>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="flex items-center grid-cols-2 gap-4 pb-8 overflow-x-auto sm:grid md:grid-cols-3 lg:grid-cols-4 scrollbar">
             {Array.from({ length: 8 }, (_, index) => (
               <CardFlashSale key={index} />
             ))}
@@ -50,7 +45,6 @@ export default async function HomePage() {
         </div>
       </Background>
       <Container className="py-16 space-y-8">
-        <h4 className="text-3xl font-semibold">Find Your Favorite Games</h4>
         <Products data={products} />
       </Container>
     </section>

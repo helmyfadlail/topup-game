@@ -19,7 +19,7 @@ import { CardDiamondProps, CardPaymentProps, CardPromoProps, CardUserIDProps, Re
 
 export const CardFlashSale = () => {
   return (
-    <div className="w-full rounded-lg bg-dark group">
+    <div className="w-full rounded-lg bg-dark group min-w-80 sm:min-w-40">
       <div className="flex items-center gap-2 p-4 rounded-lg bg-gradient-to-r from-dark to-light/50 group-hover:from-light group-hover:to-light group-hover:text-dark">
         <Img src="/images/ml.webp" alt="icon mobile legends" className="rounded-lg min-w-12 aspect-square" cover />
         <div className="flex flex-col gap-1">
@@ -85,9 +85,9 @@ export const CardPayment = ({ name, pathImg, tax, selected, handleSelected, coll
   }
 };
 
-export const CardDiamond = ({ handleSelectDiamond, selectItem, price, priceDiscount, iconUrl, name, discount, id }: CardDiamondProps) => {
+export const CardDiamond = ({ handleSelectItem, selectItem, price, priceDiscount, iconUrl, name, discount, id }: CardDiamondProps) => {
   return (
-    <div onClick={() => handleSelectDiamond(id || 0)} className="card-diamond">
+    <div onClick={() => handleSelectItem(id || 0)} className="card-diamond">
       {selectItem === id && <Border />}
       {priceDiscount ? <Ribbon value={`${Math.ceil(discount)}% OFF`} className="w-20 py-1 lg:w-24" parentClassName="w-14 lg:w-16" /> : null}
       <div className="space-y-1 text-xxs sm:text-xs">
@@ -129,7 +129,7 @@ export const CardUserID = ({ handleChangeInput, formState }: CardUserIDProps) =>
             className="w-full p-4 text-xs rounded-lg outline-none lg:text-sm bg-light/10"
             required
           />
-          {formState.error && formState.values.userId && <small className="text-red-600">Input your user id</small>}
+          {formState.error && !formState.values.userId && <small className="text-red-600">Input your user id</small>}
         </div>
         <div className="relative space-y-2">
           <label htmlFor="zoneId" className="text-xs lg:text-sm">
@@ -144,11 +144,11 @@ export const CardUserID = ({ handleChangeInput, formState }: CardUserIDProps) =>
             className="w-full p-4 text-xs rounded-lg outline-none lg:text-sm bg-light/10"
             required
           />
-          {formState.error && formState.values.zoneId && <small className="text-red-600">Input your zone id</small>}
+          {formState.error && !formState.values.zoneId && <small className="text-red-600">Input your zone id</small>}
         </div>
         <div className="relative col-span-2 space-y-2">
           <label htmlFor="whatsappNumber" className="text-xs lg:text-sm">
-            Number WhatsApp
+            Number WhatsApp*
           </label>
           <input
             type="tel"
@@ -157,7 +157,7 @@ export const CardUserID = ({ handleChangeInput, formState }: CardUserIDProps) =>
             placeholder="Input number WA (081********63)"
             className="w-full p-4 text-xs rounded-lg outline-none lg:text-sm bg-light/10"
           />
-          {formState.error && formState.values.whatsappNumber && <small className="text-red-600">Input your whatsapp number</small>}
+          {formState.error && !formState.values.whatsappNumber && <small className="text-red-600">Input your whatsapp number</small>}
         </div>
         <div className="col-span-2">
           <p className="leading-normal text-justify text-xxs sm:text-xs md:leading-relaxed text-light/50">

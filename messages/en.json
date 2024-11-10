@@ -1,6 +1,28 @@
 {
   "HomePage": {
     "title": "Hello world!",
-    "about": "Go to the about page"
+    "about": "Go to the about page",
+    "favorite-games": "Find Your Favorite Games",
+    "recommendation": "Recommendation",
+    "pc-game": "Pc Game",
+    "mobile-game": "Mobile Game"
+  },
+  "Header": {
+    "login-register": "Login/Register",
+    "home": "Home",
+    "tracker": "Check Transaction",
+    "all-products": "All Products"
+  },
+  "Footer": {
+    "home": "Home",
+    "all-games": "All Games",
+    "register": "Register",
+    "login": "Login",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact Us",
+    "follow": "Follow Us",
+    "other": "Other Games",
+    "sitemap": "Site Map"
   }
 }

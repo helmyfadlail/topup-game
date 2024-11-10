@@ -1,26 +1,49 @@
-import { useState, useEffect } from "react";
+import { create } from "zustand";
+import { persist, PersistStorage } from "zustand/middleware";
+import { Item, DynamicPayload } from "@/types";
 
-export const usePersistedState = <T>(key: string, initialValue: T) => {
-  const [state, setState] = useState<T>(() => {
-    if (typeof window === "undefined") return initialValue;
+interface MyStoreState {
+  payload: DynamicPayload[]; // Define payload as an array
+  setPayload: (newPayload: DynamicPayload) => void;
+  addItem: (item: Item) => void;
+  updatePayload: (index: number, key: string, value: any) => void;
+  clearPayload: () => void;
+}
 
-    try {
-      const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
-      return initialValue;
-    }
-  });
-
-  // Store state in localStorage when it changes
-  useEffect(() => {
-    try {
-      localStorage.setItem(key, JSON.stringify(state));
-    } catch (error) {
-      console.error(`Error setting localStorage key "${key}":`, error);
-    }
-  }, [key, state]);
-
-  return [state, setState] as const;
+const localStorageProvider: PersistStorage<any> = {
+  getItem: (name) => {
+    const item = localStorage.getItem(name);
+    return item ? JSON.parse(item) : [];
+  },
+  setItem: (name, value) => {
+    localStorage.setItem(name, JSON.stringify(value));
+  },
+  removeItem: (name) => {
+    localStorage.removeItem(name);
+  },
 };
+
+export const usePersistedState = create<MyStoreState>()(
+  persist(
+    (set) => ({
+      payload: [], // Initialize as an empty array
+      setPayload: (newPayload: DynamicPayload) => set((state) => ({ payload: [...state.payload, newPayload] })),
+      addItem: (item: Item) =>
+        set((state) => ({
+          payload: state.payload.map((payloadItem) => ({
+            ...payloadItem,
+            items: payloadItem.items ? [...payloadItem.items, item] : [item],
+          })),
+        })),
+      updatePayload: (index: number, key: string, value: any) =>
+        set((state) => ({
+          payload: state.payload.map((payloadItem, i) => (i === index ? { ...payloadItem, [key]: value } : payloadItem)),
+        })),
+      clearPayload: () => set({ payload: [] }),
+    }),
+    {
+      name: "payload",
+      storage: localStorageProvider,
+    }
+  )
+);

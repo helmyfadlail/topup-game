@@ -2,8 +2,10 @@
 
 import * as React from "react";
 
+import { useToggleState } from "@/hooks";
+
 import { AnimatePresence, motion } from "framer-motion";
-import { CardPayment, CardPromo, CardUserID, Container, Img, Modal } from "@/components/ui";
+import { CardPayment, CardPromo, CardUserID, Modal } from "@/components/ui";
 
 import { CiSearch } from "react-icons/ci";
 import { IoMdPricetag } from "react-icons/io";
@@ -11,13 +13,14 @@ import { PiCaretRightBold, PiCaretUpBold } from "react-icons/pi";
 
 import { motionVariants } from "@/static";
 
-import { formatCurrency } from "@/utils";
-
 import { FormUserTypes } from "@/types";
-import { useToggleState } from "@/hooks";
 
-const initValues = { userId: "", zoneId: "", whatsappNumber: "" };
-const initState = { values: initValues, loading: false, error: false };
+interface FormProps {
+  handleSelectPayment: (select: string) => void;
+  handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  formState: FormUserTypes;
+  selectedPayment: string;
+}
 
 const paymentMethod = [
   { name: "QRIS", items: [{ name: "QRIS", pathImg: "/images/qris.webp" }], collapsed: true },
@@ -33,27 +36,13 @@ const paymentMethod = [
   },
 ];
 
-const Form = () => {
+const Form = ({ handleSelectPayment, formState, selectedPayment, handleChangeInput }: FormProps) => {
   const [ref, modal, toggleModal] = useToggleState();
 
-  const [selected, setSelected] = React.useState<string>("");
   const [items, setItems] = React.useState(paymentMethod);
-  const [formState, setFormState] = React.useState<FormUserTypes>(initState);
-
-  const handleSelected = (select: string) => {
-    setSelected(select);
-  };
 
   const toggleCollapse = (name: string) => {
     setItems((prevItems) => prevItems.map((item) => (item.name === name ? { ...item, collapsed: !item.collapsed } : item)));
-  };
-
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormState((prevState) => ({
-      ...prevState,
-      values: { ...prevState.values, [id]: value },
-    }));
   };
 
   return (
@@ -118,36 +107,11 @@ const Form = () => {
 
             <motion.div initial={false} animate={payment.collapsed ? "open" : "closed"} variants={motionVariants} className="grid grid-cols-1 gap-4 md:grid-cols-2 bg-background">
               {payment.items.map((wallet, index) => (
-                <CardPayment key={index} name={wallet.name} pathImg={wallet.pathImg} tax={1500} selected={selected} handleSelected={handleSelected} collapsed={payment.collapsed} />
+                <CardPayment key={index} name={wallet.name} pathImg={wallet.pathImg} tax={1500} selected={selectedPayment} handleSelected={handleSelectPayment} collapsed={payment.collapsed} />
               ))}
             </motion.div>
           </div>
         ))}
-      </div>
-      <div className="fixed bottom-0 left-0 flex items-center w-full h-24 bg-dark/50 backdrop-blur z-100">
-        <Container className="flex items-center justify-between gap-16">
-          <div className="flex items-center gap-4 max-w-48 sm:max-w-full">
-            <Img src={"/images/diamond.webp"} alt="icon diamond" className="hidden size-12 sm:block" cover />
-            <div className="space-y-1 sm:whitespace-nowrap">
-              <p className="text-xs font-semibold text-light sm:text-sm md:text-base">12976 Diamonds (10839 + 2137 Bonus)</p>
-              <small className="text-light/50 text-xxs sm:text-xs md:text-base">
-                Price: <strong className="text-light">{formatCurrency(2755000)}</strong>
-              </small>
-            </div>
-          </div>
-          <div className="items-center hidden w-full gap-4 lg:flex">
-            <Img src="/images/qris.webp" alt="icon payment method" className="w-20 rounded-lg aspect-video" />
-            <div className="space-y-1 whitespace-nowrap">
-              <p className="font-semibold text-light">QRIS</p>
-              <small className="text-light/50">
-                Tax: <strong className="text-light">Rp {formatCurrency(1500, "decimal")},-</strong>
-              </small>
-            </div>
-          </div>
-          <div className="relative whitespace-nowrap">
-            <button className="relative rounded-lg btn-light">Buy Now</button>
-          </div>
-        </Container>
       </div>
     </div>
   );

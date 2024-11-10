@@ -8,4 +8,4 @@ export * from "./card";
 export * from "./ribbon";
 export * from "./border";
 export * from "./modal";
-export * from "./carousel";
+export * from "./Slider";

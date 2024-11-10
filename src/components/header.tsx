@@ -17,6 +17,7 @@ import { HiUserGroup } from "react-icons/hi";
 
 import { motionVariants } from "@/static";
 import { RiLoginBoxFill } from "react-icons/ri";
+import { useTranslations } from "next-intl";
 
 export const Header = ({ className }: { className: string }) => {
   const [searchToggle, setSearchToggle] = useState<boolean>(false);
@@ -29,6 +30,8 @@ export const Header = ({ className }: { className: string }) => {
   const handleSearchToggle = () => {
     setSearchToggle((prev) => !prev);
   };
+
+  const t = useTranslations("Header");
 
   return (
     <header ref={refNavbar} className={`fixed top-0 w-full shadow bg-background z-1000 ${className ?? ""}`}>
@@ -56,11 +59,11 @@ export const Header = ({ className }: { className: string }) => {
               <FaSearch size={20} />
             </button>
           )}
-          <div className="h-10 border-r flex gap-2 pr-4 items-center border-light/20">
-            <span className="rounded-xl bg-light/10 p-2">
+          <div className="flex items-center h-10 gap-2 pr-4 border-r border-light/20">
+            <span className="p-2 rounded-xl bg-light/10">
               <RiLoginBoxFill />
             </span>
-            <span className="text-sm hover:underline hover:text-light/80 duration-300 cursor-pointer">Login/Register</span>
+            <span className="text-sm duration-300 cursor-pointer hover:underline hover:text-light/80">{t("login-register")}</span>
           </div>
           <LanguageSwitcher />
         </div>
@@ -86,11 +89,11 @@ export const Header = ({ className }: { className: string }) => {
         </div>
       </motion.div>
       <motion.div initial={false} animate={navbar ? "open" : "closed"} variants={motionVariants} className={`block sm:hidden ${navbar && "p-4"}`}>
-        <div className="h-14 flex gap-2 items-center">
-          <span className="rounded-xl bg-light/10 p-2">
+        <div className="flex items-center gap-2 h-14">
+          <span className="p-2 rounded-xl bg-light/10">
             <RiLoginBoxFill />
           </span>
-          <span className="text-sm hover:underline hover:text-light/80 duration-300 cursor-pointer">Login/Register</span>
+          <span className="text-sm duration-300 cursor-pointer hover:underline hover:text-light/80">{t("login-register")}</span>
         </div>
       </motion.div>
       <Container className="justify-between hidden h-16 sm:flex text-light">
@@ -98,13 +101,13 @@ export const Header = ({ className }: { className: string }) => {
           <li className="flex items-center gap-1">
             <AiOutlineHome />
             <Link href="/" className="text-sm font-semibold hover:text-primary">
-              Home
+              {t("home")}
             </Link>
           </li>
           <li className="flex items-center gap-1">
             <FaSearch size={15} />
             <Link href="/order-history" className="text-sm font-semibold hover:text-primary">
-              Check Transaction
+              {t("tracker")}
             </Link>
           </li>
         </div>
@@ -117,7 +120,7 @@ export const Header = ({ className }: { className: string }) => {
               <li className="flex items-center gap-2 px-1 hover:bg-light/10">
                 <HiUserGroup size={24} />
                 <Link href="/" className="block py-2 mt-2 text-sm">
-                  All Products
+                  {t("all-products")}
                 </Link>
               </li>
 
