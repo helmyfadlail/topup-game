@@ -27,6 +27,9 @@ const space_grotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Maniac Game",
   description: "This is official top up game by Maniac Game",
+  icons: {
+    icon: "/images/ml.webp",
+  },
 };
 
 export default async function LocaleLayout({ children, params: { locale } }: { children: React.ReactNode; params: { locale: string } }) {
