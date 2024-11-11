@@ -5,6 +5,7 @@ import * as React from "react";
 import { CardDiamond, CardUserID, Img } from "@/components/ui";
 
 import { FormUserTypes, ResponsePayload } from "@/types";
+import { useTranslations } from "next-intl";
 
 interface DiamondsProps {
   product: Partial<ResponsePayload>;
@@ -15,13 +16,14 @@ interface DiamondsProps {
 }
 
 const Diamonds = ({ product, handleChangeInput, selectItem, handleSelectItem, formState }: DiamondsProps) => {
+  const t = useTranslations("ProductPage");
   return (
     <>
       <div className="block p-4 -mt-64 rounded-lg md:hidden bg-background">
         <CardUserID handleChangeInput={handleChangeInput} formState={formState} />
       </div>
       <div className="col-span-1 p-4 rounded-lg sm:p-6 md:p-8 lg:col-span-3 bg-background h-max">
-        <h4 className="hidden mb-8 text-2xl font-semibold md:block">Choose Products</h4>
+        <h4 className="hidden mb-8 text-2xl font-semibold md:block">{t("choose-products")}</h4>
         <menu className="grid grid-cols-2 mb-8 overflow-hidden rounded-lg lg:gap-4 xl:grid-cols-4 bg-dark md:bg-transparent md:rounded-none">
           <div className="flex items-center justify-center gap-2 p-3 duration-300 border-b-2 cursor-pointer lg:p-4 md:justify-start md:rounded-lg md:border border-light group hover:bg-light">
             <Img src={product?.items?.[0].iconUrl || "/images/diamond.webp"} alt="icon diamond" className="size-6" cover />

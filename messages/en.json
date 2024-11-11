@@ -24,5 +24,20 @@
     "follow": "Follow Us",
     "other": "Other Games",
     "sitemap": "Site Map"
+  },
+  "ProductPage": {
+    "customer": "Customer Service 24/7",
+    "distributor": "Official Distributor",
+    "choose-products": "Choose Products",
+    "complete-data": "Complete the data and get your product!",
+    "description-note": "To find out your User ID, please click on the profile menu at the top left of the main game menu. Your User ID will be visible under your Game Character Name. Please enter your User ID and Server ID / Zone ID to complete the transaction. User ID is outside the brackets and Server ID / Zone ID is inside the brackets. Example: 12345678(1234).",
+    "create-order": "Make an Order",
+    "create-order-msg": "Make sure your account data and the products you choose are valid and appropriate."
+  },
+  "InvoicesPage": {
+    "waiting-payment": "WAITING FOR PAYMENT",
+    "waiting-payment-msg": "Complete payment before time runs out",
+    "expired": "So Your Order Doesn`t Expire",
+    "method-payment-msg": "Transfer through methods"
   }
 }

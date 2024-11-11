@@ -2,9 +2,15 @@
 
 import * as React from "react";
 
+import { useRouter } from "@/i18n/routing";
+import { notFound } from "next/navigation";
+
 import { usePersistedState } from "@/hooks";
 
+import { useTranslations } from "next-intl";
+
 import { AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast";
 import Diamonds from "./diamonds";
 import Form from "./form";
 import { Container, Img, Modal } from "@/components/ui";
@@ -13,10 +19,9 @@ import { imgLogoBroken, mergedPaymentMethods, usersAccount } from "@/static";
 
 import { formatCurrency, generateRandomString } from "@/utils";
 
-import { FormUserTypes, ResponsePayload } from "@/types";
 import { FaCheck } from "react-icons/fa6";
-import toast from "react-hot-toast";
-import { useRouter } from "@/i18n/routing";
+
+import { FormUserTypes, ResponsePayload } from "@/types";
 
 const initValues = { userId: "", zoneId: "", whatsappNumber: "" };
 const initState = { values: initValues, loading: false, error: false };
@@ -31,6 +36,7 @@ const DetailText = ({ desc, value }: { desc: string; value: string }) => {
 };
 
 const Product = ({ product }: { product: Partial<ResponsePayload> }) => {
+  const t = useTranslations("ProductPage");
   const { push } = useRouter();
 
   const [formState, setFormState] = React.useState<FormUserTypes>(initState);
@@ -117,6 +123,10 @@ const Product = ({ product }: { product: Partial<ResponsePayload> }) => {
     }, 3000);
   };
 
+  if (!product) {
+    notFound();
+  }
+
   return (
     <Container className="grid w-full grid-cols-1 gap-8 py-8 md:grid-cols-2 lg:grid-cols-5">
       <Diamonds product={product} formState={formState} handleChangeInput={handleChangeInput} selectItem={selectItem || 0} handleSelectItem={handleSelectItem} />
@@ -170,8 +180,8 @@ const Product = ({ product }: { product: Partial<ResponsePayload> }) => {
               <div className="flex items-center justify-center rounded-full size-16 bg-green">
                 <FaCheck className="bg-green/50" size={24} />
               </div>
-              <h5 className="mt-4 font-semibold">Buat Pesanan</h5>
-              <small>Pastikan data akun Anda dan produk yang Anda pilih valid dan sesuai.</small>
+              <h5 className="mt-4 font-semibold">{t("create-order")}</h5>
+              <small>{t("create-order-msg")}</small>
               <div className="w-full p-2 mt-4 space-y-2 rounded bg-dark">
                 <DetailText desc="Username" value={findAccountUser?.username || ""} />
                 <DetailText desc="User ID" value={findAccountUser?.userId + ""} />
@@ -182,7 +192,13 @@ const Product = ({ product }: { product: Partial<ResponsePayload> }) => {
               </div>
               <div className="flex justify-center w-full mt-2">
                 <button onClick={handleSubmitProduct} className={`rounded-lg btn-light w-full ${loading && "animate-pulse"}`}>
-                  Submit
+                  {loading ? (
+                    <div className="px-6">
+                      <div className="loader size-4 after:size-4"></div>
+                    </div>
+                  ) : (
+                    "Order"
+                  )}
                 </button>
               </div>
             </div>

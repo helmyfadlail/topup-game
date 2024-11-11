@@ -3,6 +3,7 @@
 import { CountdownPayment, Img } from "@/components/ui";
 import { usePersistedState } from "@/hooks";
 import { mergedPaymentMethods } from "@/static";
+import { useTranslations } from "next-intl";
 
 const Payment = ({ id }: { id: string }) => {
   const { payload } = usePersistedState();
@@ -10,13 +11,15 @@ const Payment = ({ id }: { id: string }) => {
 
   const findPayment = mergedPaymentMethods.find((item) => item.name === invoice?.paymentMethod);
 
+  const t = useTranslations("InvoicesPage");
+
   return (
     <div className="space-y-4">
       <div className="px-12 py-8 text-center rounded-lg bg-background">
-        <h4 className="mb-8 text-2xl font-semibold">WAITING FOR PAYMENT</h4>
-        <p className="mb-4 text-sm text-light/50">Complete payment before time runs out</p>
+        <h4 className="mb-8 text-2xl font-semibold">{t("waiting-payment")}</h4>
+        <p className="mb-4 text-sm text-light/50">{t("waiting-payment-msg")}</p>
         <CountdownPayment />
-        <p className="mt-4 text-sm text-light/50">So Your Order Doesn&apos;t Expire</p>
+        <p className="mt-4 text-sm text-light/50">{t("expired")}</p>
       </div>
       <div className="p-8 space-y-4 rounded-lg bg-background">
         <div className="flex items-center gap-2 p-2 text-sm border rounded-lg border-light/10">
@@ -26,7 +29,9 @@ const Payment = ({ id }: { id: string }) => {
             {findPayment?.name === "QRIS" ? (
               <p className="text-xs text-light/50">Scan via Shopee Pay, OVO, DANA, Gopay and LinkAja</p>
             ) : (
-              <p className="text-xs text-light/50"> Transfer melalui metode {findPayment?.name}</p>
+              <p className="text-xs text-light/50">
+                {t("method-payment-msg")} {findPayment?.name}
+              </p>
             )}
           </div>
         </div>

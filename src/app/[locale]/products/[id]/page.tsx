@@ -9,12 +9,15 @@ import { imgBanner, imgLogoBroken } from "@/static";
 
 import { ResponsePayload } from "@/types";
 import Product from "./product";
+import { getTranslations } from "next-intl/server";
 
 export default async function ProductDetailPage({ params }: { params: { id: number } }) {
   const response = await fetch("https://6708f839af1a3998ba9fdc6e.mockapi.io/api/v1/products");
   const products: ResponsePayload[] = await response.json();
 
   const product = products.find((product) => product.id === params.id + "");
+
+  const t = await getTranslations();
 
   if (!product) {
     notFound();
@@ -35,11 +38,11 @@ export default async function ProductDetailPage({ params }: { params: { id: numb
           <div className="flex items-center justify-center gap-2">
             <span className="flex items-center gap-1.5 px-4 py-1 text-xs rounded-2xl bg-dark/10">
               <MdHeadsetMic size={15} />
-              Customer Service 24/7
+              {t("ProductPage.customer")}
             </span>
             <span className="flex items-center gap-1.5 px-4 py-1 text-xs rounded-2xl bg-dark/10">
               <HiBadgeCheck size={15} />
-              Official Distributor
+              {t("ProductPage.distributor")}
             </span>
           </div>
         </div>
@@ -61,11 +64,11 @@ export default async function ProductDetailPage({ params }: { params: { id: numb
             <div className="flex items-center gap-2">
               <span className="flex items-center gap-1.5 px-4 py-1 text-xs rounded-2xl bg-light/20">
                 <MdHeadsetMic size={15} />
-                Customer Service 24/7
+                {t("ProductPage.customer")}
               </span>
               <span className="flex items-center gap-1.5 px-4 py-1 text-xs rounded-2xl bg-light/20">
                 <HiBadgeCheck size={15} />
-                Official Distributor
+                {t("ProductPage.distributor")}
               </span>
             </div>
           </div>

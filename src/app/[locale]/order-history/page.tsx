@@ -5,7 +5,7 @@ import FilterOrder from "./filter-order";
 export default function OrderHistory() {
   return (
     <section className="overflow-x-hidden">
-      <Container className="pt-8 space-y-8">
+      <Container className="py-8 space-y-8">
         <Background src="/images/ml-banner.webp" className="items-center px-4 sm:px-8 md:px-10 lg:px-16 min-h-200 sm:min-h-300 bg-dark/30" parentClassName="rounded-2xl">
           <div className="flex items-center gap-4 sm:gap-8 z-1">
             <span className="p-2 sm:p-4 rounded-2xl bg-light/80">

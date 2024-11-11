@@ -16,6 +16,7 @@ import { PiWarningCircle } from "react-icons/pi";
 import { formatCurrency } from "@/utils";
 
 import { CardDiamondProps, CardPaymentProps, CardPromoProps, CardUserIDProps, ResponsePayload } from "@/types";
+import { useTranslations } from "next-intl";
 
 export const CardFlashSale = () => {
   return (
@@ -104,6 +105,7 @@ export const CardDiamond = ({ handleSelectItem, selectItem, price, priceDiscount
 };
 
 export const CardUserID = ({ handleChangeInput, formState }: CardUserIDProps) => {
+  const t = useTranslations("ProductPage");
   return (
     <>
       <div className="flex items-center gap-4 mb-8">
@@ -112,7 +114,7 @@ export const CardUserID = ({ handleChangeInput, formState }: CardUserIDProps) =>
         </div>
         <div className="space-y-2">
           <h4 className="text-base font-semibold sm:text-xl lg:text-3xl text-light">Topup Game</h4>
-          <p className="text-xs sm:text-sm lg:text-lg text-light/50">Lengkapi data dan dapatkan produk anda!</p>
+          <p className="text-xs sm:text-sm lg:text-lg text-light/50">{t("complete-data")}</p>
         </div>
       </div>
       <div className="grid w-full grid-cols-2 md:pt-8 md:border-t gap-y-4 gap-x-2 sm:gap-x-4 sm:gap-y-6 md:border-light/50">
@@ -160,10 +162,7 @@ export const CardUserID = ({ handleChangeInput, formState }: CardUserIDProps) =>
           {formState.error && !formState.values.whatsappNumber && <small className="text-red-600">Input your whatsapp number</small>}
         </div>
         <div className="col-span-2">
-          <p className="leading-normal text-justify text-xxs sm:text-xs md:leading-relaxed text-light/50">
-            Untuk mengetahui User ID Anda, silakan klik menu profile dibagian kiri atas pada menu utama game. User ID akan terlihat dibagian bawah Nama Karakter Game Anda. Silakan masukkan User ID dan
-            Server ID / Zone ID Anda untuk menyelesaikan transaksi. User ID berada diluar tanda kurung dan Server ID / Zone ID didalam tanda kurung. Contoh : 12345678(1234).
-          </p>
+          <p className="leading-normal text-justify text-xxs sm:text-xs md:leading-relaxed text-light/50">{t("description-note")}</p>
         </div>
       </div>
     </>

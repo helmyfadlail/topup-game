@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/routing";
 
 import { usePersistedState } from "@/hooks";
@@ -42,7 +42,7 @@ const Invoice = ({ id }: { id: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!invoice || !invoiceIndex) return null;
+  if (!invoice || !invoiceIndex) notFound();
 
   return (
     <>

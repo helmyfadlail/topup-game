@@ -24,5 +24,20 @@
     "follow": "Ikuti Kami",
     "other": "Permainan Lainnya",
     "sitemap": "Peta Situs"
+  },
+  "ProductPage": {
+    "customer": "Layanan Pelanggan 24/7",
+    "distributor": "Distributor Resmi",
+    "description-note": "Untuk mengetahui User ID Anda, silakan klik menu profile dibagian kiri atas pada menu utama game. \nUser ID akan terlihat dibagian bawah Nama Karakter Game Anda. \nSilakan masukkan User ID dan Server ID / Zone ID Anda untuk menyelesaikan transaksi. \nUser ID berada di luar tanda kurung dan Server ID / Zone ID di dalam tanda kurung. \nContoh : 12345678(1234).",
+    "complete-data": "Lengkapi data dan dapatkan produk anda!",
+    "choose-products": "Pilih Produk",
+    "create-order": "Buat Pesanan",
+    "create-order-msg": "Pastikan data akun Anda dan produk yang Anda pilih valid dan sesuai."
+  },
+  "InvoicesPage": {
+    "waiting-payment": "MENUNGGU PEMBAYARAN",
+    "waiting-payment-msg": "Selesaikan pembayaran sebelum waktu habis",
+    "expired": "Jadi Pesanan Anda Tidak Kedaluwarsa",
+    "method-payment-msg": "Transfer melalui metode"
   }
 }
